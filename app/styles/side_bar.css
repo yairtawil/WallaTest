@@ -1,0 +1,148 @@
+
+.main .side-bar {
+ /* width: 250px;*/
+  height: calc(100% - 52px);
+  background: #cdc9ff;
+  position: absolute;
+  left: 0;
+  width: 30%;
+  padding: 3% 1%;
+  transition: 1s;
+
+}
+.main .side-bar.hidden-side-bar{
+  left: -30%;
+}
+.main .side-bar .toggle-side-menu{
+    position: absolute;
+    right: 0;
+    top: calc(50% - 36px);
+    transform: translateX(100%);
+    z-index: 1;
+    /* height: 200px; */
+    padding: 25px 0;
+}
+.main .side-bar .toggle-side-menu.menu_open{
+  display: none;
+  transform: translateX(0%); 
+}
+.main .side-bar:hover .toggle-side-menu.menu_open{
+  display: block;
+  transform: translateX(0%);
+}
+.main .side-bar .btn-group.field{
+      width: 76.5%;
+}
+.main .side-bar .btn-group.field input.search{
+  padding-right: 25px;
+}
+span.clear-search.glyphicon.glyphicon-remove-circle{
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  cursor: pointer;
+}
+span.glyphicon.disabled{
+  opacity: .5;
+}
+
+
+.main .side-bar h5.no-data {
+    text-align: center;
+    margin-top: 30%;
+}
+
+.main .side-bar ul.list-group{
+  overflow-y: auto;
+  font-size: small;
+  margin-top: 10%;
+  height: 50%;
+  width: 90%;
+}
+.main .side-bar ul.list-group li.list-group-item{
+  padding: 15px 60px 15px 15px;
+  cursor: pointer;
+}
+.main .side-bar ul.list-group li.list-group-item .main-area{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.main .side-bar ul.list-group li.list-group-item .btn.btn-default.glyphicon.glyphicon-trash {
+/*  position: absolute;
+  right: 0;
+    margin: 7px 7px 0 0;
+*/
+    position: absolute;
+    right: 0;
+    margin: 25px 7px 0 0;
+    font-size: 11px;
+    padding: 0px 15px;
+    color: red;
+}
+
+.main .side-bar ul.list-group li.list-group-item .btn.btn-default.glyphicon.glyphicon-pencil {
+/*  position: absolute;
+  right: 0;
+    margin: 7px 7px 0 0;
+*/
+    position: absolute;
+    right: 0;
+    margin: 7px 7px 0 0;    
+    font-size: 11px;
+    padding: 0px 15px;
+    color: #00ff21;
+}
+.main .side-bar ul.list-group li.list-group-item span.glyphicon.glyphicon-ok{
+  color: #00ff21;
+}
+
+.main .side-bar ul.list-group li.list-group-item.is_selected{
+  background: #605ebf;
+    color: #cdc9ff;
+}
+.main .side-bar ul.list-group li.list-group-item.is_selected:hover{
+    color: #cdc9ff;
+}
+.main .side-bar ul.list-group li.list-group-item:hover{
+    color: #605ebf;
+    font-weight: bold;
+}
+.main .side-bar ul.list-group li.list-group-item form.edit_form input.edit_input{
+       position: absolute;
+    left: 1%;
+    top: 4%;
+    width: 75%;
+     padding-right: 55px; 
+    height: 90%;
+}
+.main .side-bar ul.list-group li.list-group-item form.edit_form .close{
+    position: absolute;
+    left: 2%;
+    top: 7%;
+    /* background: red; */
+    z-index: 200;
+    font-size: small;
+}
+
+.main .side-bar ul.list-group li.list-group-item form.edit_form button[type="submit"] {
+      position: absolute;
+    right: 25%;
+    top: 22%;
+    font-size: xx-small;
+}
+.main .side-bar .alert {
+    position: absolute;
+    bottom: 0;
+    padding: 5%;
+    width: 90%;
+    left: 5%;
+    opacity: 0;
+    transition: 0.5s;
+    font-size: small;
+}
+.main .side-bar .alert.show {
+    opacity: 1;
+}
+
+

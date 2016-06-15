@@ -1,0 +1,82 @@
+	<div class="side-bar" ng-class="{'hidden-side-bar': !shown.menu}">
+		<h5 class="text-success">
+			<span ng-click="shown.add = !shown.add" class="glyphicon glyphicon-{{shown.add ? 'minus' : 'plus'}}-sign"></span> 
+			Add
+		</h5>
+
+		<form ng-show="shown.add" name="urlForm" ng-submit="addUrl(inputs.add_url)">
+			<div class="btn-group field">
+			  <input type="text" placeholder="Add url" ng-model="inputs.add_url" ng-change="inputs.add_url_error_msg = ''" class="form-control" id="usr" required ng-style="inputs.add_url_error_msg && {border: '1px solid red'}">
+			</div>
+			
+			<div class="btn-group">
+			  <button class="form-control btn btn-success glyphicon glyphicon-plus" type="submit" ng-disabled="urlForm.$invalid"></button> 
+			</div>
+			<div class="btn-group">
+				<span class="add_url_error_msg">{{inputs.add_url_error_msg}}</span>
+			</div>
+		</form>
+
+		<h5 class="text-info">
+			<span ng-click="shown.search = !shown.search" class="glyphicon glyphicon-{{shown.search ? 'minus' : 'plus'}}-sign"></span> 
+			Search
+		</h5>
+		
+		<form ng-show="shown.search" name="searchForm" ng-submit="inputs.search_result = inputs.search">
+			<div class="btn-group field">
+			  <input type="text" placeholder="Search" ng-model="inputs.search" class="form-control search"/>
+			  <span ng-show="inputs.search" class="clear-search glyphicon glyphicon-remove-circle" ng-click="inputs.search_result = inputs.search = ''"></span>
+			</div>
+			<div class="btn-group">
+			  <button class="form-control btn btn-info glyphicon glyphicon-search" type="submit" ng-disabled="searchForm.$invalid"></button> 
+			</div>	
+		</form>
+
+
+		<h5 class="text-success">
+			<span ng-click="shown.urls = !shown.urls" class="glyphicon glyphicon-{{shown.urls ? 'minus' : 'plus'}}-sign"></span> 
+			Url's
+		</h5>
+
+
+
+
+			<h6 ng-show="inputs.search_result && shown.urls" >results for: 
+				<span class="text-danger">{{inputs.search_result}}
+				</span>
+			</h6>
+
+
+			<h5 class="no-data" ng-show="noUrls() && shown.urls">
+				No data
+			</h5>
+
+			<ul class="list-group" ng-hide="noUrls() || !shown.urls">
+				<li class="list-group-item" ng-class="{'is_selected': selected.rss_feed.id === rss_feed.id}" ng-repeat="rss_feed in filteredRssFeeds(rss_feeds)">
+				<div class="main-area" ng-click="selectRssFeed(rss_feed)">
+					<span ng-show="selected.rss_feed.id === rss_feed.id" class="glyphicon glyphicon-ok"></span>
+					{{rss_feed.url}}
+				</div>
+				<div class="tools">
+					
+					<form class="edit_form" ng-if="edit_variables[rss_feed.id].show_edit" ng-init="edit_variables[rss_feed.id].edit_input = rss_feed.url" ng-submit="editRssFeed(rss_feed, edit_variables[rss_feed.id].edit_input)">
+						<span class="close" ng-click="edit_variables[rss_feed.id].show_edit = false">X</span>
+						<input class="form-control edit_input"  ng-model="edit_variables[rss_feed.id].edit_input" />
+						<button type="submit" class="btn btn-info">Save</button>
+					</form>
+					
+					<button class="btn btn-default glyphicon glyphicon-trash" ng-click="deleteRssFees(rss_feed.id)"></button>
+
+					<button class="btn btn-default glyphicon glyphicon-pencil" ng-click="edit_variables[rss_feed.id].show_edit = !edit_variables[rss_feed.id].show_edit"></button>
+				</div>
+				
+				</li>
+			</ul>
+
+		<div class="alert alert-{{alert.type}}" ng-class="{'show': alert.show}">
+		  {{alert.message}}
+		</div>
+		<button class="toggle-side-menu menu_open btn btn-default glyphicon glyphicon-chevron-{{shown.menu ? 'left' : 'right'}}" ng-class="{'menu_open': shown.menu}" ng-click="shown.menu = !shown.menu"></button>
+	</div>
+
+

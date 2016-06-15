@@ -1,0 +1,23 @@
+<div class="main">
+
+	<ng-include src="'views/side_bar.html'"></ng-include>
+	
+	<div class="main-page" ng-class="{'loading': loading.action, 'side-menu-hidden': !shown.menu}">
+		
+		<button class="btn btn-lg btn-warning" ng-show="loading.action"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+
+		<div class="page-data" ng-hide="loading.action || selected.responseDetails || isEmpty(selected.data)">
+			<h2>{{selected.data.title}}</h2>
+			<div class="feed-items" >
+		        <feed-item 
+		        	ng-repeat="item in selected.data.entries"
+		        	item="item">		
+		        </feed-item>
+			</div>
+		</div>
+
+		<div class="no-page-data" ng-show="!loading.action &&selected.responseDetails && isEmpty(selected.data)">
+			{{selected.responseDetails}}
+		</div>
+	</div>
+</div>
