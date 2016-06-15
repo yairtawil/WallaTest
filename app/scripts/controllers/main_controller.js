@@ -1,5 +1,20 @@
-angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverService','$timeout','$filter','$firebaseObject', '$firebaseArray', function ($scope, serverService, $timeout, $filter, $firebaseObject, $firebaseArray) {
+angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverService','$timeout','$filter', '$firebaseArray', '$state', '$stateParams', function ($scope, serverService, $timeout, $filter, $firebaseArray, $state, $stateParams) {
 	'use strict';
+  
+  $scope.init = function () {
+    // if(_.isEmpty($scope.rss_feeds)) return;
+    var id = $stateParams.id;
+    var rss_feed = _.find($scope.rss_feeds, {id: id});
+    if(!rss_feed){
+      $scope.selectRssFeed($scope.rss_feeds[_.size($scope.rss_feeds) - 1]);
+      return;
+    } 
+    $scope.selected.rss_feed  = rss_feed;
+    $scope.loadFeedData(rss_feed.url);  
+  };
+
+  $scope.show_descriptions = {};
+
   $scope.shown = {
     menu: true,
     add: true,
@@ -37,7 +52,7 @@ angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverSe
   $scope.rss_feeds = $firebaseArray(ref);
   $scope.rss_feeds.$loaded().then(
     function () {
-      $scope.selectRssFeed($scope.rss_feeds[_.size($scope.rss_feeds) - 1]);
+      $scope.init();
     },
     function () {
 
@@ -94,6 +109,7 @@ angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverSe
       $scope.loading.action = true;
       serverService.getRssFeed(url).then(
         function (response) {
+          console.log("response = ",response);
           $scope.loading.action = false;
           $scope.selected.responseDetails = response.data.responseDetails;
           if (response.data.responseStatus === 200 && response.data.responseData) {
@@ -113,8 +129,7 @@ angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverSe
     };
 
     $scope.selectRssFeed = function (rss_feed) {
-      $scope.selected.rss_feed  = rss_feed;
-      $scope.loadFeedData(rss_feed.url)
+      $state.go("main", {id: rss_feed.id});
     };
 
   	$scope.generateId = function () {
@@ -165,7 +180,4 @@ angular.module('testApp.controllers').controller('MainCtrl',['$scope', 'serverSe
         )
   		}
   	};
-
-    // $scope.selectRssFeed($scope.rss_feeds[0])
-
 }]);
