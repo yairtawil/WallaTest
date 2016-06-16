@@ -1,5 +1,5 @@
 <div class="well feed_item">
-	<h4 class="title">{{item.title}}</h4>
+	<a ng-href="{{item.link}}" target="_blank"><h4 class="title">{{item.title}}</h4></a>
 	<h5 class="date">{{item.publishedDate}}</h5>
 	<div class="body" ng-bind-html='$sce.trustAsHtml(item.content)'></div>
 </div>
